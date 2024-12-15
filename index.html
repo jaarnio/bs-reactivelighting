@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video with Reactive Lighting</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+      }
+      #video-container {
+        position: relative;
+        width: 1280px;
+        height: 720px;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+      }
+      .rectangle {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      #controls {
+        margin-top: 60px; /* Shift the text element further down the page */
+        font-size: 3em; /* Make the text 3 times bigger */
+        color: white; /* Make the text color white */
+      }
+      #segments {
+        font-size: 1em; /* Increase the font size of the input */
+        padding: 10px; /* Add padding to the input */
+        width: 100px; /* Increase the width of the input */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="video-container">
+      <video id="video" controls>
+        <source src="./media/bbb_sunflower_1080p_60fps_normal.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div id="controls">
+      <label for="segments">Segments:</label>
+      <input type="number" id="segments" name="segments" min="1" max="128" value="1" />
+    </div>
+    <script>
+      const videoContainer = document.getElementById("video-container");
+      const segmentsInput = document.getElementById("segments");
+      const video = document.getElementById("video");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      segmentsInput.addEventListener("input", updateRectangles);
+      video.addEventListener("play", analyzeFrame);
+      video.addEventListener("pause", analyzeFrame);
+      video.addEventListener("seeked", analyzeFrame);
+
+      function updateRectangles() {
+        const segments = parseInt(segmentsInput.value);
+        const videoWidth = videoContainer.clientWidth;
+        const videoHeight = videoContainer.clientHeight;
+        const rectWidth = videoWidth / segments;
+        const rectHeight = videoHeight / segments;
+
+        // Clear existing rectangles
+        document.querySelectorAll(".rectangle").forEach((rect) => rect.remove());
+
+        let id = 1;
+
+        // Top edge
+        for (let i = 0; i < segments; i++) {
+          const rect = document.createElement("div");
+          rect.className = "rectangle";
+          rect.id = id++;
+          rect.style.width = `${rectWidth}px`;
+          rect.style.height = `30px`;
+          rect.style.top = `-30px`;
+          rect.style.left = `${i * rectWidth}px`;
+          videoContainer.appendChild(rect);
+        }
+
+        // Right edge
+        for (let i = 0; i < segments; i++) {
+          const rect = document.createElement("div");
+          rect.className = "rectangle";
+          rect.id = id++;
+          rect.style.width = `30px`;
+          rect.style.height = `${rectHeight}px`;
+          rect.style.right = `-30px`;
+          rect.style.top = `${i * rectHeight}px`;
+          videoContainer.appendChild(rect);
+        }
+
+        // Bottom edge
+        for (let i = segments - 1; i >= 0; i--) {
+          const rect = document.createElement("div");
+          rect.className = "rectangle";
+          rect.id = id++;
+          rect.style.width = `${rectWidth}px`;
+          rect.style.height = `30px`;
+          rect.style.bottom = `-30px`;
+          rect.style.left = `${i * rectWidth}px`;
+          videoContainer.appendChild(rect);
+        }
+
+        // Left edge
+        for (let i = segments - 1; i >= 0; i--) {
+          const rect = document.createElement("div");
+          rect.className = "rectangle";
+          rect.id = id++;
+          rect.style.width = `30px`;
+          rect.style.height = `${rectHeight}px`;
+          rect.style.left = `-30px`;
+          rect.style.top = `${i * rectHeight}px`;
+          videoContainer.appendChild(rect);
+        }
+      }
+
+      function analyzeFrame() {
+        if (video.paused || video.ended) {
+          return;
+        }
+
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+        canvas.width = videoWidth;
+        canvas.height = videoHeight;
+        ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+
+        const segments = parseInt(segmentsInput.value);
+        const rectWidth = videoWidth / segments;
+        const rectHeight = videoHeight / segments;
+
+        // Analyze top edge
+        for (let i = 0; i < segments; i++) {
+          const imageData = ctx.getImageData(i * rectWidth, 0, rectWidth, 10);
+          const { avgColor } = calculateAverageColorAndLuminance(imageData);
+          const rect = document.getElementById(i + 1);
+          rect.style.backgroundColor = avgColor;
+        }
+
+        // Analyze right edge
+        for (let i = 0; i < segments; i++) {
+          const imageData = ctx.getImageData(
+            videoWidth - 10,
+            i * rectHeight,
+            10,
+            rectHeight
+          );
+          const { avgColor } = calculateAverageColorAndLuminance(imageData);
+          const rect = document.getElementById(segments + i + 1);
+          rect.style.backgroundColor = avgColor;
+        }
+
+        // Analyze bottom edge
+        for (let i = segments - 1; i >= 0; i--) {
+          const imageData = ctx.getImageData(
+            i * rectWidth,
+            videoHeight - 10,
+            rectWidth,
+            10
+          );
+          const { avgColor } = calculateAverageColorAndLuminance(imageData);
+          const rect = document.getElementById(2 * segments + (segments - 1 - i) + 1);
+          rect.style.backgroundColor = avgColor;
+        }
+
+        // Analyze left edge
+        for (let i = segments - 1; i >= 0; i--) {
+          const imageData = ctx.getImageData(0, i * rectHeight, 10, rectHeight);
+          const { avgColor } = calculateAverageColorAndLuminance(imageData);
+          const rect = document.getElementById(3 * segments + (segments - 1 - i) + 1);
+          rect.style.backgroundColor = avgColor;
+        }
+
+        requestAnimationFrame(analyzeFrame);
+      }
+
+      function calculateAverageColorAndLuminance(imageData) {
+        const data = imageData.data;
+        let r = 0,
+          g = 0,
+          b = 0;
+
+        for (let i = 0; i < data.length; i += 4) {
+          r += data[i];
+          g += data[i + 1];
+          b += data[i + 2];
+        }
+
+        const pixelCount = data.length / 4;
+        r = Math.round(r / pixelCount);
+        g = Math.round(g / pixelCount);
+        b = Math.round(b / pixelCount);
+
+        const avgColor = `rgb(${r}, ${g}, ${b})`;
+        const avgLuminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        return { avgColor, avgLuminance };
+      }
+
+      // Initial call to draw rectangles
+      updateRectangles();
+    </script>
+  </body>
+</html>
