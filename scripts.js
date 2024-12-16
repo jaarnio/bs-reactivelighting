@@ -95,7 +95,7 @@ function updateRectangles() {
     id++;
   }
 
-  console.log(rectanglesData);
+  //console.log(rectanglesData);
 }
 
 function analyzeFrame() {
