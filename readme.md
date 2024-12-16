@@ -1,5 +1,7 @@
 # Rectangle Segments Analyzer
 
+![Screenshot](screenshot.png)
+
 This project is a web-based application that analyzes video frames and displays the average RGB and luminance values for segments of the video. The segments are represented as rectangles around the edges of the video container.
 
 ## Features
