@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overlay Viewer</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      canvas {
+        width: 1920px;
+        height: 1080px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="overlay"></canvas>
+    <script>
+      const overlay = document.getElementById("overlay");
+      const ctxOverlay = overlay.getContext("2d");
+
+      const config = {
+        topLEDs: 16,
+        rightLEDs: 9,
+        bottomLEDs: 16,
+        leftLEDs: 9,
+        sampleDepth: 30,
+      };
+
+      // WebSocket client setup
+      const wsClient = new WebSocket("ws://localhost:8181");
+
+      wsClient.onmessage = (event) => {
+        const ledValues = JSON.parse(event.data);
+        renderOverlay(ledValues);
+      };
+
+      function renderOverlay(ledValues) {
+        const width = (overlay.width = 1920); // Match video dimensions
+        const height = (overlay.height = 1080); // Match video dimensions
+
+        ctxOverlay.clearRect(0, 0, width, height); // Clear the canvas
+
+        let id = 1;
+
+        // Top edge
+        const topSampleWidth = width / config.topLEDs;
+        for (let i = 0; i < config.topLEDs; i++) {
+          const x = i * topSampleWidth;
+          const y = 0;
+          const region = ledValues[id++];
+          if (region) {
+            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillRect(x, y, topSampleWidth, config.sampleDepth);
+            ctxOverlay.strokeStyle = "black";
+            ctxOverlay.strokeRect(x, y, topSampleWidth, config.sampleDepth);
+          }
+        }
+
+        // Right edge
+        const rightSampleHeight = height / config.rightLEDs;
+        for (let i = 0; i < config.rightLEDs; i++) {
+          const x = width - config.sampleDepth;
+          const y = i * rightSampleHeight;
+          const region = ledValues[id++];
+          if (region) {
+            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillRect(x, y, config.sampleDepth, rightSampleHeight);
+            ctxOverlay.strokeStyle = "black";
+            ctxOverlay.strokeRect(x, y, config.sampleDepth, rightSampleHeight);
+          }
+        }
+
+        // Bottom edge
+        const bottomSampleWidth = width / config.bottomLEDs;
+        for (let i = config.bottomLEDs - 1; i >= 0; i--) {
+          const x = i * bottomSampleWidth;
+          const y = height - config.sampleDepth;
+          const region = ledValues[id++];
+          if (region) {
+            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillRect(x, y, bottomSampleWidth, config.sampleDepth);
+            ctxOverlay.strokeStyle = "black";
+            ctxOverlay.strokeRect(x, y, bottomSampleWidth, config.sampleDepth);
+          }
+        }
+
+        // Left edge
+        const leftSampleHeight = height / config.leftLEDs;
+        for (let i = config.leftLEDs - 1; i >= 0; i--) {
+          const x = 0;
+          const y = i * leftSampleHeight;
+          const region = ledValues[id++];
+          if (region) {
+            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillRect(x, y, config.sampleDepth, leftSampleHeight);
+            ctxOverlay.strokeStyle = "black";
+            ctxOverlay.strokeRect(x, y, config.sampleDepth, leftSampleHeight);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

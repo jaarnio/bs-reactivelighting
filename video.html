@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      video {
+        width: 1920px;
+        height: 1080px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video-player" autoplay muted controls loop>
+      <source src="./media/bbb_sunflower_1080p_60fps_normal.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <script>
+      const video = document.getElementById("video-player");
+
+      // Configuration parameters
+      const config = {
+        topLEDs: 16,
+        rightLEDs: 9,
+        bottomLEDs: 16,
+        leftLEDs: 9,
+        sampleDepth: 30, // Number of pixels deep to sample
+        sampleRate: 1, // Number of frames to skip between samples
+      };
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let ledValues = {};
+
+      // WebSocket client setup
+      const ws = new WebSocket("ws://192.168.30.111:8181");
+
+      ws.onopen = () => {
+        console.log("Connected to WebSocket server.");
+      };
+
+      ws.onclose = () => {
+        console.log("Disconnected from WebSocket server.");
+      };
+
+      // Function to calculate the average color of a region
+      function calculateRegionData(imageData) {
+        let r = 0,
+          g = 0,
+          b = 0,
+          total = 0;
+
+        for (let i = 0; i < imageData.data.length; i += 4) {
+          r += imageData.data[i];
+          g += imageData.data[i + 1];
+          b += imageData.data[i + 2];
+          total++;
+        }
+
+        const avgR = r / total;
+        const avgG = g / total;
+        const avgB = b / total;
+
+        return {
+          color: `rgb(${Math.round(avgR)}, ${Math.round(avgG)}, ${Math.round(avgB)})`,
+        };
+      }
+
+      // Function to sample edges
+      function sampleEdges() {
+        const width = video.videoWidth;
+        const height = video.videoHeight;
+
+        if (width === 0 || height === 0) return;
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(video, 0, 0, width, height);
+
+        let id = 1;
+        ledValues = {};
+
+        // Top edge
+        const topSampleWidth = width / config.topLEDs;
+        for (let i = 0; i < config.topLEDs; i++) {
+          const x = i * topSampleWidth;
+          const y = 0;
+          const imageData = ctx.getImageData(x, y, topSampleWidth, config.sampleDepth);
+          ledValues[id++] = calculateRegionData(imageData);
+        }
+
+        // Right edge
+        const rightSampleHeight = height / config.rightLEDs;
+        for (let i = 0; i < config.rightLEDs; i++) {
+          const x = width - config.sampleDepth;
+          const y = i * rightSampleHeight;
+          const imageData = ctx.getImageData(x, y, config.sampleDepth, rightSampleHeight);
+          ledValues[id++] = calculateRegionData(imageData);
+        }
+
+        // Bottom edge
+        const bottomSampleWidth = width / config.bottomLEDs;
+        for (let i = config.bottomLEDs - 1; i >= 0; i--) {
+          const x = i * bottomSampleWidth;
+          const y = height - config.sampleDepth;
+          const imageData = ctx.getImageData(x, y, bottomSampleWidth, config.sampleDepth);
+          ledValues[id++] = calculateRegionData(imageData);
+        }
+
+        // Left edge
+        const leftSampleHeight = height / config.leftLEDs;
+        for (let i = config.leftLEDs - 1; i >= 0; i--) {
+          const x = 0;
+          const y = i * leftSampleHeight;
+          const imageData = ctx.getImageData(x, y, config.sampleDepth, leftSampleHeight);
+          ledValues[id++] = calculateRegionData(imageData);
+        }
+
+        // Send data to WebSocket server
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify(ledValues));
+        }
+      }
+
+      // Control sampling rate
+      let frameCount = 0;
+      video.addEventListener("play", () => {
+        setInterval(() => {
+          if (!video.paused && !video.ended) {
+            if (frameCount % config.sampleRate === 0) {
+              sampleEdges();
+            }
+            frameCount++;
+          }
+        }, 1000 / 60); // Assuming 60 FPS video
+      });
+    </script>
+  </body>
+</html>

@@ -506,7 +506,7 @@
         }
       },
       "wssDeviceSpec": {},
-      "lastModifiedTime": "2024-12-16T02:15:37.513Z"
+      "lastModifiedTime": "2024-12-16T17:42:03.013Z"
     },
     "zones": {
       "zonesById": {
@@ -750,7 +750,7 @@
           "params": [
             {
               "type": "Text",
-              "value": "http://localhost:3000"
+              "value": "http://localhost:3000/video.html"
             }
           ]
         }
@@ -874,9 +874,9 @@
     },
     "viewTransformByZoneId": {
       "78137e8c-f374-4000-ae6d-3af49fd34000": {
-        "x": 861.25,
-        "y": 369.25,
-        "k": 1.5
+        "x": 558.6955818415944,
+        "y": 215.11946478210442,
+        "k": 0.8615237662477762
       }
     },
     "isLoaderEnabled": false
