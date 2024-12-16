@@ -185,7 +185,7 @@ function analyzeFrame() {
     ].avgLuminance = avgLuminance;
   }
 
-  console.log(rectanglesData);
+  //console.log(rectanglesData);
   requestAnimationFrame(analyzeFrame);
 }
 
