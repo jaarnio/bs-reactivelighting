@@ -37,12 +37,12 @@
         sampleRate: 1, // Number of frames to skip between samples
       };
 
-      const serial_out = new BSSerialPort(2);
-      serial_out.SetBaudRate(115200);
-      serial_out.SetDataBits(8);
-      serial_out.SetStopBits(1);
-      serial_out.SetParity("none");
-      serial_out.SetEcho(true);
+      //const serial_out = new BSSerialPort(2);
+      //serial_out.SetBaudRate(115200);
+      //serial_out.SetDataBits(8);
+      //serial_out.SetStopBits(1);
+      //serial_out.SetParity("none");
+      //serial_out.SetEcho(true);
 
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -77,7 +77,7 @@
         const avgB = b / total;
 
         return {
-          color: `rgb(${Math.round(avgR)}, ${Math.round(avgG)}, ${Math.round(avgB)})`,
+          c: `${Math.round(avgR)},${Math.round(avgG)},${Math.round(avgB)}`,
         };
       }
 

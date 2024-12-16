@@ -25,10 +25,10 @@
       const ctxOverlay = overlay.getContext("2d");
 
       const config = {
-        topLEDs: 32,
-        rightLEDs: 18,
-        bottomLEDs: 32,
-        leftLEDs: 18,
+        topLEDs: 16,
+        rightLEDs: 9,
+        bottomLEDs: 16,
+        leftLEDs: 9,
         sampleDepth: 30,
       };
 
@@ -37,7 +37,7 @@
 
       wsClient.onmessage = (event) => {
         const ledValues = JSON.parse(event.data);
-        console.log(ledValues);
+        //console.log(ledValues);
         renderOverlay(ledValues);
       };
 
@@ -56,7 +56,7 @@
           const y = 0;
           const region = ledValues[id++];
           if (region) {
-            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillStyle = `rgb(${region.c})`;
             ctxOverlay.fillRect(x, y, topSampleWidth, config.sampleDepth);
             ctxOverlay.strokeStyle = "black";
             ctxOverlay.strokeRect(x, y, topSampleWidth, config.sampleDepth);
@@ -70,7 +70,7 @@
           const y = i * rightSampleHeight;
           const region = ledValues[id++];
           if (region) {
-            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillStyle = `rgb(${region.c})`;
             ctxOverlay.fillRect(x, y, config.sampleDepth, rightSampleHeight);
             ctxOverlay.strokeStyle = "black";
             ctxOverlay.strokeRect(x, y, config.sampleDepth, rightSampleHeight);
@@ -84,7 +84,7 @@
           const y = height - config.sampleDepth;
           const region = ledValues[id++];
           if (region) {
-            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillStyle = `rgb(${region.c})`;
             ctxOverlay.fillRect(x, y, bottomSampleWidth, config.sampleDepth);
             ctxOverlay.strokeStyle = "black";
             ctxOverlay.strokeRect(x, y, bottomSampleWidth, config.sampleDepth);
@@ -98,7 +98,7 @@
           const y = i * leftSampleHeight;
           const region = ledValues[id++];
           if (region) {
-            ctxOverlay.fillStyle = region.color;
+            ctxOverlay.fillStyle = `rgb(${region.c})`;
             ctxOverlay.fillRect(x, y, config.sampleDepth, leftSampleHeight);
             ctxOverlay.strokeStyle = "black";
             ctxOverlay.strokeRect(x, y, config.sampleDepth, leftSampleHeight);
