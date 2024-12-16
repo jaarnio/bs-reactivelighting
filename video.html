@@ -37,18 +37,23 @@
         sampleRate: 1, // Number of frames to skip between samples
       };
 
+      const serial_out = new BSSerialPort(2);
+      serial_out.SetBaudRate(115200);
+      serial_out.SetDataBits(8);
+      serial_out.SetStopBits(1);
+      serial_out.SetParity("none");
+      serial_out.SetEcho(true);
+
       const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
       let ledValues = {};
 
       // WebSocket client setup
       const ws = new WebSocket("ws://192.168.30.111:8181");
-
       ws.onopen = () => {
         console.log("Connected to WebSocket server.");
       };
-
       ws.onclose = () => {
         console.log("Disconnected from WebSocket server.");
       };
@@ -125,6 +130,9 @@
           const imageData = ctx.getImageData(x, y, config.sampleDepth, leftSampleHeight);
           ledValues[id++] = calculateRegionData(imageData);
         }
+
+        // Send data to serial port
+        //serial_out.SendBytes(JSON.stringify(ledValues));
 
         // Send data to WebSocket server
         if (ws.readyState === WebSocket.OPEN) {

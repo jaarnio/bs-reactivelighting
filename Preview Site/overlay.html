@@ -25,10 +25,10 @@
       const ctxOverlay = overlay.getContext("2d");
 
       const config = {
-        topLEDs: 16,
-        rightLEDs: 9,
-        bottomLEDs: 16,
-        leftLEDs: 9,
+        topLEDs: 32,
+        rightLEDs: 18,
+        bottomLEDs: 32,
+        leftLEDs: 18,
         sampleDepth: 30,
       };
 
@@ -37,6 +37,7 @@
 
       wsClient.onmessage = (event) => {
         const ledValues = JSON.parse(event.data);
+        console.log(ledValues);
         renderOverlay(ledValues);
       };
 

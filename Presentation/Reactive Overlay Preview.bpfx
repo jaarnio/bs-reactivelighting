@@ -6,15 +6,15 @@
   "bsdm": {
     "sign": {
       "properties": {
-        "id": "bed3070a-eef0-4000-a224-666c47c25000",
+        "id": "6328d8e2-2ff2-4000-af47-3596b1331000",
         "version": "1.3.10",
-        "name": "Reactive Lighting",
+        "name": "Reactive Overlay Preview",
         "videoMode": "1920x1080x60p",
         "size": {
           "width": 1920,
           "height": 1080
         },
-        "model": "XT1145",
+        "model": "HS145",
         "monitorOrientation": "Landscape",
         "monitorOverscan": "NoOverscan",
         "videoConnector": "HDMI",
@@ -25,10 +25,10 @@
           "b": 0,
           "a": 255
         },
-        "forceResolution": true,
+        "forceResolution": false,
         "tenBitColorEnabled": false,
         "dolbyVisionEnabled": false,
-        "fullResGraphicsEnabled": true,
+        "fullResGraphicsEnabled": false,
         "audioConfiguration": "MixedAudioPCMOnly",
         "audioAutoLevel": false,
         "htmlEnableJavascriptConsole": true,
@@ -506,17 +506,17 @@
         }
       },
       "wssDeviceSpec": {},
-      "lastModifiedTime": "2024-12-16T22:14:58.317Z"
+      "lastModifiedTime": "2024-12-16T18:46:14.414Z"
     },
     "zones": {
       "zonesById": {
-        "78137e8c-f374-4000-ae6d-3af49fd34000": {
-          "id": "78137e8c-f374-4000-ae6d-3af49fd34000",
+        "c81e1e28-e33a-4000-a97a-9f1c471e7000": {
+          "id": "c81e1e28-e33a-4000-a97a-9f1c471e7000",
           "name": "Zone 1",
           "type": "VideoOrImages",
           "tag": "VI1",
-          "nonInteractive": false,
-          "initialMediaStateId": "2a65ed9b-6807-4000-a59c-e1dd361df000",
+          "nonInteractive": true,
+          "initialMediaStateId": "2bbfe46d-654b-4000-a53c-f4fed037c000",
           "position": {
             "width": 1920,
             "height": 1080,
@@ -576,105 +576,78 @@
         }
       },
       "allZones": [
-        "78137e8c-f374-4000-ae6d-3af49fd34000"
+        "c81e1e28-e33a-4000-a97a-9f1c471e7000"
       ],
       "zoneLayersById": {
-        "86372212-d926-4000-afb0-5ca78c700000": {
-          "id": "86372212-d926-4000-afb0-5ca78c700000",
+        "e863be4c-5107-4000-aa31-8705ac4cd000": {
+          "id": "e863be4c-5107-4000-aa31-8705ac4cd000",
           "type": "Graphics",
           "zoneSequence": [
-            "78137e8c-f374-4000-ae6d-3af49fd34000"
+            "c81e1e28-e33a-4000-a97a-9f1c471e7000"
           ]
         },
-        "0208f0f7-1f65-4000-a56c-6531a96f7000": {
-          "id": "0208f0f7-1f65-4000-a56c-6531a96f7000",
+        "18b71695-ca0d-4000-aeb8-b7f87cee5000": {
+          "id": "18b71695-ca0d-4000-aeb8-b7f87cee5000",
           "type": "Audio",
           "zoneSequence": []
         },
-        "348eb4a7-d425-4000-a119-5001f752d000": {
-          "id": "348eb4a7-d425-4000-a119-5001f752d000",
+        "4728ba02-4e70-4000-ae2c-91cf7921d000": {
+          "id": "4728ba02-4e70-4000-ae2c-91cf7921d000",
           "type": "Invisible",
           "zoneSequence": []
         },
-        "b853d9bb-881f-4000-ac35-2ceaffa3b000": {
-          "id": "b853d9bb-881f-4000-ac35-2ceaffa3b000",
+        "44c2d1fb-8d4d-4000-a6b8-25b8ac71d000": {
+          "id": "44c2d1fb-8d4d-4000-a6b8-25b8ac71d000",
           "type": "Video",
           "zoneSequence": [
-            "78137e8c-f374-4000-ae6d-3af49fd34000"
+            "c81e1e28-e33a-4000-a97a-9f1c471e7000"
           ],
           "zoneLayerSpecificProperties": {
-            "type": "FourK",
+            "type": "HD",
             "index": 0,
-            "sharedDecoder": false,
+            "sharedDecoder": true,
             "enableMosaicDeinterlacer": false
           }
         },
-        "e5914d83-ef55-4000-a75a-413d9e68b000": {
-          "id": "e5914d83-ef55-4000-a75a-413d9e68b000",
+        "0508664e-e506-4000-a737-4ee90e798000": {
+          "id": "0508664e-e506-4000-a737-4ee90e798000",
           "type": "Video",
           "zoneSequence": [],
           "zoneLayerSpecificProperties": {
-            "type": "FourK",
+            "type": "HD",
             "index": 1,
-            "sharedDecoder": false,
+            "sharedDecoder": true,
             "enableMosaicDeinterlacer": false
           }
         }
       },
       "zoneLayerSequence": [
-        "86372212-d926-4000-afb0-5ca78c700000",
-        "b853d9bb-881f-4000-ac35-2ceaffa3b000",
-        "e5914d83-ef55-4000-a75a-413d9e68b000"
+        "e863be4c-5107-4000-aa31-8705ac4cd000",
+        "44c2d1fb-8d4d-4000-a6b8-25b8ac71d000",
+        "0508664e-e506-4000-a737-4ee90e798000"
       ],
       "zoneTagIndices": {
-        "78137e8c-f374-4000-ae6d-3af49fd34000": 3
+        "c81e1e28-e33a-4000-a97a-9f1c471e7000": 2
       }
     },
     "screens": {
-      "screensById": {
-        "616c90da-20fd-4000-a92a-d7d4afc88000": {
-          "id": "616c90da-20fd-4000-a92a-d7d4afc88000",
-          "name": "Screen 1",
-          "videoMode": "1920x1080x60p",
-          "videoConnectorName": "HDMI-1",
-          "monitorOrientation": "Landscape",
-          "fullResGraphicsEnabled": false,
-          "dolbyVisionEnabled": false,
-          "videoConnector": "HDMI",
-          "dimensions": {
-            "bezelTop": 0,
-            "bezelRight": 0,
-            "bezelBottom": 0,
-            "bezelLeft": 0,
-            "screenWidth": 0,
-            "screenHeight": 0,
-            "x": 0,
-            "y": 0
-          },
-          "forceResolution": true,
-          "tenBitColorEnabled": false
-        }
-      },
-      "allScreens": [
-        [
-          "616c90da-20fd-4000-a92a-d7d4afc88000"
-        ]
-      ]
+      "screensById": {},
+      "allScreens": []
     },
     "mediaStates": {
       "mediaStatesById": {
-        "3d23952f-6ed7-4000-ac6e-a3bb70004000": {
-          "id": "3d23952f-6ed7-4000-ac6e-a3bb70004000",
+        "2bbfe46d-654b-4000-a53c-f4fed037c000": {
+          "id": "2bbfe46d-654b-4000-a53c-f4fed037c000",
           "name": "HTML 5",
           "tag": "1",
           "container": {
-            "id": "78137e8c-f374-4000-ae6d-3af49fd34000",
+            "id": "c81e1e28-e33a-4000-a97a-9f1c471e7000",
             "type": 0
           },
           "contentItem": {
             "name": "HTML 5",
             "type": "Html",
-            "siteId": "e661a5b5-2db5-4000-acf5-0e5161ff2000",
+            "siteId": "4ce67907-ae6f-4000-a1eb-36568d883000",
             "enableBrightSignJavascriptObjects": true,
             "enableCrossDomainPolicyChecks": false,
             "ignoreHttpsCertificateErrors": false,
@@ -686,44 +659,29 @@
             "enableFileURLSharedStorage": true,
             "enableHtmlURLSharedStorage": false
           }
-        },
-        "2a65ed9b-6807-4000-a59c-e1dd361df000": {
-          "id": "2a65ed9b-6807-4000-a59c-e1dd361df000",
-          "name": "Event Handler",
-          "tag": "2",
-          "container": {
-            "id": "78137e8c-f374-4000-ae6d-3af49fd34000",
-            "type": 0
-          },
-          "contentItem": {
-            "name": "Event Handler",
-            "type": "EventHandler",
-            "stopPlayback": false
-          }
         }
       },
       "sequencesByParentId": {}
     },
     "events": {
-      "cd655b25-38f1-4000-ab42-964776e1e000": {
-        "id": "cd655b25-38f1-4000-ab42-964776e1e000",
-        "name": "Event Handler_ev_ev",
+      "c279d3d9-f5a8-4000-a4f6-9c6767b1a000": {
+        "id": "c279d3d9-f5a8-4000-a4f6-9c6767b1a000",
+        "name": "HTML 5_ev",
         "type": "Timer",
-        "mediaStateId": "2a65ed9b-6807-4000-a59c-e1dd361df000",
-        "disabled": false,
+        "mediaStateId": "2bbfe46d-654b-4000-a53c-f4fed037c000",
+        "disabled": true,
         "data": {
-          "interval": 3
-        },
-        "action": "None"
+          "interval": 0
+        }
       }
     },
     "transitions": {
       "transitionsById": {
-        "cd74a936-a69e-4000-a1fc-688f94f9a000": {
-          "id": "cd74a936-a69e-4000-a1fc-688f94f9a000",
-          "name": "Event Handler_ev_tr",
-          "eventId": "cd655b25-38f1-4000-ab42-964776e1e000",
-          "targetMediaStateId": "3d23952f-6ed7-4000-ac6e-a3bb70004000",
+        "7e397a91-6c5c-4000-adf6-19ce73748000": {
+          "id": "7e397a91-6c5c-4000-adf6-19ce73748000",
+          "name": "HTML 5_tr",
+          "eventId": "c279d3d9-f5a8-4000-a4f6-9c6767b1a000",
+          "targetMediaStateId": "2bbfe46d-654b-4000-a53c-f4fed037c000",
           "type": "No effect",
           "duration": 0
         }
@@ -739,35 +697,18 @@
       "sequence": []
     },
     "htmlSites": {
-      "e661a5b5-2db5-4000-acf5-0e5161ff2000": {
-        "id": "e661a5b5-2db5-4000-acf5-0e5161ff2000",
-        "type": "Remote",
+      "4ce67907-ae6f-4000-a1eb-36568d883000": {
+        "id": "4ce67907-ae6f-4000-a1eb-36568d883000",
+        "type": "Hosted",
         "name": "HTML 5 Site",
         "queryString": {
           "params": []
         },
-        "url": {
-          "params": [
-            {
-              "type": "Text",
-              "value": "http://localhost:3000/video.html"
-            }
-          ]
-        }
+        "indexAssetId": "e6a4a57b-95bb-4000-a91f-69749d0be000",
+        "enableNode": false
       }
     },
-    "nodeApps": {
-      "5040ef19-9081-4000-adb7-1198176d8000": {
-        "id": "5040ef19-9081-4000-adb7-1198176d8000",
-        "name": "bs-ftp-server",
-        "indexAssetId": "3be48a72-d380-4000-a1a1-ee0c049d7000"
-      },
-      "5d93230f-ac54-4000-a0b4-d0d90c87a000": {
-        "id": "5d93230f-ac54-4000-a0b4-d0d90c87a000",
-        "name": "bs-express",
-        "indexAssetId": "4846e9e3-ffde-4000-a44a-d9719a5c2000"
-      }
-    },
+    "nodeApps": {},
     "dataFeeds": {
       "feedsById": {},
       "sourcesById": {}
@@ -792,30 +733,17 @@
     "customAutorun": "0",
     "bmapSpec": "0",
     "assetMap": {
-      "3be48a72-d380-4000-a1a1-ee0c049d7000": {
-        "id": "3be48a72-d380-4000-a1a1-ee0c049d7000",
-        "name": "bs-ftp-server.js",
-        "path": "P:\\BrightSign\\BrightSign Dev\\Servers\\bs-ftp-server\\dist\\",
+      "e6a4a57b-95bb-4000-a91f-69749d0be000": {
+        "id": "e6a4a57b-95bb-4000-a91f-69749d0be000",
+        "name": "overlay.html",
+        "path": "P:\\BrightSign\\BrightSign Dev\\bs-reactivelighting\\Preview Site\\",
         "networkId": 0,
         "location": "Local",
         "assetType": "HtmlSite",
         "scope": "9560ed3374e2cc1c",
-        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\Servers\\bs-ftp-server\\dist\\bs-ftp-server.js",
-        "fileSize": 760374,
-        "lastModifiedDate": "2024-11-27T19:22:18.205Z",
-        "refCount": 1
-      },
-      "4846e9e3-ffde-4000-a44a-d9719a5c2000": {
-        "id": "4846e9e3-ffde-4000-a44a-d9719a5c2000",
-        "name": "bs-express.js",
-        "path": "P:\\BrightSign\\BrightSign Dev\\Servers\\bs-express\\dist\\",
-        "networkId": 0,
-        "location": "Local",
-        "assetType": "HtmlSite",
-        "scope": "9560ed3374e2cc1c",
-        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\Servers\\bs-express\\dist\\bs-express.js",
-        "fileSize": 600476,
-        "lastModifiedDate": "2024-11-16T05:32:09.950Z",
+        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\bs-reactivelighting\\Preview Site\\overlay.html",
+        "fileSize": 3662,
+        "lastModifiedDate": "2024-12-16T18:40:38.077Z",
         "refCount": 1
       }
     },
@@ -832,60 +760,25 @@
   "selection": {
     "hovered": null,
     "selectionContainer": {
-      "id": "78137e8c-f374-4000-ae6d-3af49fd34000",
+      "id": "c81e1e28-e33a-4000-a97a-9f1c471e7000",
       "type": "ZONE",
       "selectableType": "ZONE"
     },
     "selectionEntities": {
-      "3d23952f-6ed7-4000-ac6e-a3bb70004000": {
-        "id": "3d23952f-6ed7-4000-ac6e-a3bb70004000",
+      "2bbfe46d-654b-4000-a53c-f4fed037c000": {
+        "id": "2bbfe46d-654b-4000-a53c-f4fed037c000",
         "type": "Html",
-        "selectableType": "STATE",
-        "selectableData": null
+        "selectableType": "STATE"
       }
     },
-    "prevSelectionEntities": {
-      "3d23952f-6ed7-4000-ac6e-a3bb70004000": {
-        "id": "3d23952f-6ed7-4000-ac6e-a3bb70004000",
-        "type": "Html",
-        "selectableType": "STATE",
-        "selectableData": null
-      }
-    },
+    "prevSelectionEntities": {},
     "isEventAdvancedEnabled": false,
     "activeAssetMenuTab": "WIDGETS"
   },
   "interactiveCanvas": {
-    "statePositionById": {
-      "3d23952f-6ed7-4000-ac6e-a3bb70004000": {
-        "id": "3d23952f-6ed7-4000-ac6e-a3bb70004000",
-        "position": {
-          "x": -60,
-          "y": -60
-        }
-      },
-      "2a65ed9b-6807-4000-a59c-e1dd361df000": {
-        "id": "2a65ed9b-6807-4000-a59c-e1dd361df000",
-        "position": {
-          "x": -300,
-          "y": -60
-        }
-      }
-    },
-    "eventDataById": {
-      "cd655b25-38f1-4000-ab42-964776e1e000": {
-        "id": "cd655b25-38f1-4000-ab42-964776e1e000",
-        "displayType": "DisplayLabel",
-        "labelLocation": "Bottom"
-      }
-    },
-    "viewTransformByZoneId": {
-      "78137e8c-f374-4000-ae6d-3af49fd34000": {
-        "x": 0,
-        "y": 0,
-        "k": 1
-      }
-    },
+    "statePositionById": {},
+    "eventDataById": {},
+    "viewTransformByZoneId": {},
     "isLoaderEnabled": false
   },
   "eventMenu": {
