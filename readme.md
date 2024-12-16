@@ -4,6 +4,8 @@
 
 This project is a web-based application that analyzes video frames and displays the average RGB and luminance values for segments of the video. The segments are represented as rectangles around the edges of the video container.
 
+This on screen visual is for configuring a real-world LED lighting strip, and to send serialized data of the RGB and luminace values from the BrightSign to the LED strip.
+
 ## Features
 
 - Dynamically create and update rectangle segments based on user input.
