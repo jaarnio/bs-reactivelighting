@@ -1,4 +1,4 @@
-# Rectangle Segments Analyzer
+# Reactive Lighting for LED Strip
 
 ![Screenshot](screenshot.png)
 
